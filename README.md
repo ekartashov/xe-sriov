@@ -12,7 +12,7 @@ This repo is a **minimal guide** for enabling **SR-IOV** on Intel **Iris Xe iGPU
 
 > ⚠️ _**Warning & Credits:**_
 >
-> The actual driver comes from the upstream `strongtz/i915-sriov-dkms` project, and this repo includes it locally under [`./i915-sriov-dkms/`](./i915-sriov-dkms/) as a `git subtree`, thus pining a known-good revision release _(2025.12.10)_, and focuses on how to actually use the created virtual devices correctly.
+> The actual driver comes from the upstream [`strongtz/i915-sriov-dkms`](https://github.com/strongtz/i915-sriov-dkms) project, and this repo includes it locally under [`./i915-sriov-dkms/`](./i915-sriov-dkms/) as a `git subtree`, thus pining a known-good revision release _(2025.12.10)_, and focuses on how to actually use the created virtual devices correctly.
 
 ---
 
