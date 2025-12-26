@@ -1,0 +1,4 @@
+*.hdrtest
+.vscode/
+src/
+pkg/
