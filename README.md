@@ -10,15 +10,15 @@
 
 This repo is a **minimal guide** for enabling **SR-IOV** on Intel **Iris Xe iGPU** so you can pass **PCIe VFs** (Virtual Functions) via **VFIO** to your virtualisation stack.
 
-> ⚠️ _**Warning**_
+> ⚠️ _**Warning & Credits:**_
 >
-> The actual driver is provided by [`strongtz/i915-sriov-dkms`](https://github.com/strongtz/i915-sriov-dkms) repository, and this project pins a known-good release tag of it and guides how to actually get something working.
+> The actual driver comes from the upstream `strongtz/i915-sriov-dkms` project, and this repo includes it locally under [`./i915-sriov-dkms/`](./i915-sriov-dkms/) as a `git subtree`, thus pining a known-good revision release _(2025.12.10)_, and focuses on how to actually use the created virtual devices correctly.
 
 ---
 
 ## Requirements
 
-1. Intel **Iris Xe** iGPU on the host 
+1. **Host** with **Intel Iris Xe** iGPU
    <table>
      <thead>
        <tr>
@@ -41,34 +41,31 @@ This repo is a **minimal guide** for enabling **SR-IOV** on Intel **Iris Xe iGPU
        </tr>
      </tbody>
    </table>
-  
-   > 📌 _**Note on Hardware Configuration**_
+
+   > 📌 _**Note on Hardware Configuration:**_
    >
-   > Iris Xe iGPU is not always present, always check with `lspci`
+   > **Iris Xe** iGPU is _**not always present**_, always check with `lspci`.
 
-2. **GNU/Linux** _**(Only Debian 13)**_
-
-3. VT-d & IOMMU enabled
-
-4. A supported kernel for the DKMS release tag you use (see upstream “Required kernel versions” in [`i915-sriov-dkms/README.md`](https://github.com/strongtz/i915-sriov-dkms/tree/2482f8fa4b1aabf10c5c9e5c1d4e37a84f2cdf57?tab=readme-ov-file#required-kernel-versions))
+2. **GNU/Linux** _**(Should be any but, tested only on Debian 13)**_
+3. **Enabled VT-d** & **IOMMU**
+4. A supported kernel for the DKMS revision you use (see “Required kernel versions” in [`./i915-sriov-dkms/README.md`](./i915-sriov-dkms/README.md#required-kernel-versions))
 
 ---
 
 ## DKMS Installation
 
-1. Follow upstream **only**: **“Manual Installation Steps”** in [`i915-sriov-dkms/README.md`](https://github.com/strongtz/i915-sriov-dkms/tree/2482f8fa4b1aabf10c5c9e5c1d4e37a84f2cdf57?tab=readme-ov-file#manual-installation-steps)
+1. Follow **only**: **“Manual Installation Steps”** in [`./i915-sriov-dkms/README.md`](./i915-sriov-dkms/README.md#manual-installation-steps)
 
-   > ⚠️ **Note**
+   > 📌 _**Note on Installation:**_
    >
-   > - Use the **correct release tag** (this repo is pinned; do not install from random commits).
-   > - For Linux guests, upstream expects the DKMS module to be installed **in the guest too**
-   >   (see “Linux Guest Installation Steps” in the same README).
+   > - Use the **correct pinned revision in this repo** (do not install from random commits).
+   > - For Linux VM Guests, don't forget that the DKMS module must be installed **in the Guest too** (will come in following sections)
 
 2. Set the required kernel parameters (pick **i915** or **xe**)  
-   See upstream: [`i915-sriov-dkms/README.md`](https://github.com/strongtz/i915-sriov-dkms/tree/2482f8fa4b1aabf10c5c9e5c1d4e37a84f2cdf57?tab=readme-ov-file#required-kernel-parameters)
+   See upstream: [`./i915-sriov-dkms/README.md`](./i915-sriov-dkms/README.md#required-kernel-parameters)
 
 3. Create VFs (up to your configured count)  
-   See upstream: [`i915-sriov-dkms/README.md`](https://github.com/strongtz/i915-sriov-dkms/tree/2482f8fa4b1aabf10c5c9e5c1d4e37a84f2cdf57?tab=readme-ov-file#creating-virtual-functions-vf)
+   See upstream: [`./i915-sriov-dkms/README.md`](./i915-sriov-dkms/README.md#creating-virtual-functions-vf)
 
 ---
 
@@ -85,28 +82,30 @@ This repo is a **minimal guide** for enabling **SR-IOV** on Intel **Iris Xe iGPU
    done
    ```
 
-2. Prevent the host from binding **VFs** to `i915/xe` _(persists after reboot)_:
-   - Install `driverctl`
+2. Prevent the host from binding **VFs** to `i915/xe` *(persists after reboot)*:
+
+   * Install `driverctl`
+
      ```bash
      sudo apt install -y driverctl
      ```
 
-   - Set your arbitrary number of devices to be binded to `vfio-pci` skipping the first
+   * Bind an arbitrary number of VFs to `vfio-pci` (skip the PF at `.0`)
+
      ```bash
      sudo modprobe vfio-pci
-     
+
      # Replace VF_COUNT with the number of VFs you created (e.g. 7)
      VF_COUNT=7
-     
+
      for f in $(seq 1 "$VF_COUNT"); do
        sudo driverctl set-override 0000:00:02.$f vfio-pci || break
      done
-     
+
      driverctl list-overrides
-  
      ```
 
-     > ⚠️ **Note**
+     > ❗ _**Important Note to Prevent Crashes:**_
      >
      > Keep:
      >
@@ -121,9 +120,7 @@ This repo is a **minimal guide** for enabling **SR-IOV** on Intel **Iris Xe iGPU
 
 ### QEMU/KVM on libvirtd (& virt-manager)
 
-1. Add a VF PCIe device in virt-manager (example: `0000:00:02.1`).
-
-2. Equivalent libvirt XML:
+1. Add a VF PCIe device in virt-manager and/or XML (example: `0000:00:02.1`):
 
    ```xml
    <hostdev mode="subsystem" type="pci" managed="yes">
@@ -133,30 +130,24 @@ This repo is a **minimal guide** for enabling **SR-IOV** on Intel **Iris Xe iGPU
    </hostdev>
    ```
 
-   > ⚠️ **Note**
+   > 📌 _**Note on `managed` Option:**_
    >
-   > * `function="1"` maps to `0000:00:02.1` (VF #1). `function="2"` → `0000:00:02.2`, etc.
-   > * `managed="yes"` allows libvirt to detach/reattach/bind drivers on VM start/stop.
+   > - `function="1"` maps to `0000:00:02.1` (VF #1). `function="2"` → `0000:00:02.2`, etc.
+   > - `managed="yes"` allows libvirt to detach/reattach/bind drivers on VM start/stop.
    >
-   >   * If VFs are permanently on `vfio-pci` (recommended above), `managed="yes"` is usually fine.
-   >   * If you still see reattach issues, set `managed="no"`:
-   >
-   >   ```xml
-   >   <hostdev mode="subsystem" type="pci" managed="no">
-   >     <source>
-   >       <address domain="0" bus="0" slot="2" function="1"/>
-   >     </source>
-   >   </hostdev>
-   >   ```
+   >   - If VFs are permanently on `vfio-pci` (recommended above), `managed="yes"` is usually fine.
+   >   - If you still see reattach issues, set `managed="no"`
 
-3. Linux guest note (Linux VM only):
-   Follow upstream “Linux Guest Installation Steps” in [`i915-sriov-dkms/README.md`](https://github.com/strongtz/i915-sriov-dkms/tree/2482f8fa4b1aabf10c5c9e5c1d4e37a84f2cdf57?tab=readme-ov-file#linux-guest-installation-steps-ubuntu-2504kernel-614)
+2. Guest OS Setup:
+
+   * **Linux VM:** follow [*Linux Guest Installation Steps*](./i915-sriov-dkms/README.md#linux-guest-installation-steps-ubuntu-2504kernel-61)
+   * **Windows VM:** follow [*Windows Guest*](./i915-sriov-dkms/README.md#windows-guest-tested-with-proxmox-83--windows-11-24h2--intel-driver-32010164603201016259)
 
 ---
 
 ### Docker & Podman
 
-> **Note**
+> 📌 _**Note on PCIe in Containers:**_
 >
 > Containers share the host kernel; you typically do not attach an SR-IOV VF as a PCI device to Docker/Podman.
 > The usual approach is sharing the host render node.
