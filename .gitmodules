@@ -1,3 +1,0 @@
-[submodule "i915-sriov-dkms"]
-	path = i915-sriov-dkms
-	url = https://github.com/strongtz/i915-sriov-dkms.git
