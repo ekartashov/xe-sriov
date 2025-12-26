@@ -1,15 +1,11 @@
 # Iris Xe SR-IOV
 
-
-<div style="display:flex; justify-content:space-evenly; align-items:center;">
-  <picture>
-    <img alt="Iris Xe Max Logo" src="docs/images/iris_xe-max_logo.png" height="150">
-  </picture>
-
-  <picture>
-    <img alt="Iris Xe Logo" src="docs/images/iris_xe_logo.png" height="150">
-  </picture>
+<div align="center">
+  <img alt="Iris Xe Max Logo" src="docs/images/iris_xe-max_logo.png" height="150">
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img alt="Iris Xe Logo" src="docs/images/iris_xe_logo.png" height="150">
 </div>
+
 
 ## About
 
