@@ -50,13 +50,13 @@ This repo is a **minimal guide** for enabling **SR-IOV** on Intel **Iris Xe iGPU
 
 3. VT-d & IOMMU enabled
 
-4. A supported kernel for the DKMS release tag you use (see upstream “Required kernel versions” in [`./i915-sriov-dkms/README.md`](./i915-sriov-dkms/README.md#required-kernel-versions))
+4. A supported kernel for the DKMS release tag you use (see upstream “Required kernel versions” in [`i915-sriov-dkms/README.md`](https://github.com/strongtz/i915-sriov-dkms/tree/2482f8fa4b1aabf10c5c9e5c1d4e37a84f2cdf57?tab=readme-ov-file#required-kernel-versions))
 
 ---
 
 ## DKMS Installation
 
-1. Follow upstream **only**: **“Manual Installation Steps”** in [`./i915-sriov-dkms/README.md`](./i915-sriov-dkms/README.md#manual-installation-steps)
+1. Follow upstream **only**: **“Manual Installation Steps”** in [`i915-sriov-dkms/README.md`](https://github.com/strongtz/i915-sriov-dkms/tree/2482f8fa4b1aabf10c5c9e5c1d4e37a84f2cdf57?tab=readme-ov-file#manual-installation-steps)
 
    > ⚠️ **Note**
    >
@@ -65,10 +65,10 @@ This repo is a **minimal guide** for enabling **SR-IOV** on Intel **Iris Xe iGPU
    >   (see “Linux Guest Installation Steps” in the same README).
 
 2. Set the required kernel parameters (pick **i915** or **xe**)  
-   See upstream: [`./i915-sriov-dkms/README.md`](./i915-sriov-dkms/README.md#required-kernel-parameters)
+   See upstream: [`i915-sriov-dkms/README.md`](https://github.com/strongtz/i915-sriov-dkms/tree/2482f8fa4b1aabf10c5c9e5c1d4e37a84f2cdf57?tab=readme-ov-file#required-kernel-parameters)
 
 3. Create VFs (up to your configured count)  
-   See upstream: [`./i915-sriov-dkms/README.md`](./i915-sriov-dkms/README.md#creating-virtual-functions-vf)
+   See upstream: [`i915-sriov-dkms/README.md`](https://github.com/strongtz/i915-sriov-dkms/tree/2482f8fa4b1aabf10c5c9e5c1d4e37a84f2cdf57?tab=readme-ov-file#creating-virtual-functions-vf)
 
 ---
 
@@ -150,7 +150,7 @@ This repo is a **minimal guide** for enabling **SR-IOV** on Intel **Iris Xe iGPU
    >   ```
 
 3. Linux guest note (Linux VM only):
-   Follow upstream “Linux Guest Installation Steps” in [`./i915-sriov-dkms/README.md`](./i915-sriov-dkms/README.md#linux-guest-installation-steps-ubuntu-2504kernel-614)
+   Follow upstream “Linux Guest Installation Steps” in [`i915-sriov-dkms/README.md`](https://github.com/strongtz/i915-sriov-dkms/tree/2482f8fa4b1aabf10c5c9e5c1d4e37a84f2cdf57?tab=readme-ov-file#linux-guest-installation-steps-ubuntu-2504kernel-614)
 
 ---
 
