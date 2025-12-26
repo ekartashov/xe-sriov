@@ -140,7 +140,7 @@ This repo is a **minimal guide** for enabling **SR-IOV** on Intel **Iris Xe iGPU
 
 2. Guest OS Setup:
 
-   * **Linux VM:** follow [*Linux Guest Installation Steps*](./i915-sriov-dkms/README.md#linux-guest-installation-steps-ubuntu-2504kernel-61)
+   * **Linux VM:** follow [*Linux Guest Installation Steps*](./i915-sriov-dkms/README.md#linux-guest-installation-steps-ubuntu-2504kernel-614)
    * **Windows VM:** follow [*Windows Guest*](./i915-sriov-dkms/README.md#windows-guest-tested-with-proxmox-83--windows-11-24h2--intel-driver-32010164603201016259)
 
 ---
