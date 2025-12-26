@@ -91,14 +91,15 @@ This repo is a **minimal guide** for enabling **SR-IOV** on Intel **Iris Xe iGPU
      sudo apt install -y driverctl
      ```
 
-   - ```bash
+   - Set your arbitrary number of devices to be binded to `vfio-pci` skipping the first
+     ```bash
      sudo modprobe vfio-pci
      
      # Replace VF_COUNT with the number of VFs you created (e.g. 7)
      VF_COUNT=7
      
      for f in $(seq 1 "$VF_COUNT"); do
-       sudo driverctl set-override 0000:00:02.$f vfio-pci
+       sudo driverctl set-override 0000:00:02.$f vfio-pci || break
      done
      
      driverctl list-overrides
@@ -112,7 +113,7 @@ This repo is a **minimal guide** for enabling **SR-IOV** on Intel **Iris Xe iGPU
      > * PF (`0000:00:02.0`) → host graphics driver
      > * VFs (`0000:00:02.1+`) → `vfio-pci` permanently
      >
-     > This avoids “driver reattach” during VM start/stop.
+     > This avoids “driver reattach” during VM start/stop preventing loop of crashes.
 
 ---
 
