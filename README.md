@@ -49,13 +49,13 @@ This repo is a **minimal guide** for enabling **SR-IOV** on Intel **Iris Xe iGPU
 
 2. **GNU/Linux** _**(Should be any but, tested only on Debian 13)**_
 3. **Enabled VT-d** & **IOMMU**
-4. A supported kernel for the DKMS revision you use (see “Required kernel versions” in [`./i915-sriov-dkms/README.md`](./i915-sriov-dkms/README.md#required-kernel-versions))
+4. A supported kernel for the DKMS revision you use (see [Required kernel versions](./i915-sriov-dkms/README.md#required-kernel-versions))
 
 ---
 
 ## DKMS Installation
 
-1. Follow **only**: **“Manual Installation Steps”** in [`./i915-sriov-dkms/README.md`](./i915-sriov-dkms/README.md#manual-installation-steps)
+1. Follow **only**: [**Manual Installation Steps**](./i915-sriov-dkms/README.md#manual-installation-steps)
 
    > 📌 _**Note on Installation:**_
    >
@@ -63,11 +63,10 @@ This repo is a **minimal guide** for enabling **SR-IOV** on Intel **Iris Xe iGPU
    > - For Linux VM Guests, don't forget that the DKMS module must be installed **in the Guest too** (will come in following sections)
 
 2. Set the required kernel parameters (pick **i915** or **xe**)  
-   See upstream: [`./i915-sriov-dkms/README.md`](./i915-sriov-dkms/README.md#required-kernel-parameters)
+   See upstream: [*Required Kernel Parameters*](./i915-sriov-dkms/README.md#required-kernel-parameters)
 
-3. Create VFs (up to your configured count)  
-   See upstream: [`./i915-sriov-dkms/README.md`](./i915-sriov-dkms/README.md#creating-virtual-functions-vf)
-
+3. Reboot to Create VFs (up to your configured count in the kernel parameters)
+   
 ---
 
 ## Host: prevent binding to VFs
