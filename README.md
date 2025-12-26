@@ -90,7 +90,7 @@ This repo is a **minimal guide** for enabling **SR-IOV** on Intel **Iris Xe iGPU
      sudo apt install -y driverctl
      ```
 
-   * Bind an arbitrary number of VFs to `vfio-pci` (skip the PF at `.0`)
+   * Bind an arbitrary number of VFs to `vfio-pci` now and on further reboots (skip the PF at `.0`)
 
      ```bash
      sudo modprobe vfio-pci
